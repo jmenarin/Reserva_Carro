@@ -59,7 +59,51 @@ class _PageInicioState extends State<PageInicio> {
                             Align(
                               alignment: Alignment.centerLeft,
                               child: InkWell(
-                                onTap: () {},
+                                onTap: () {
+                                  showDialog(
+                                    context: context,
+                                    builder: (BuildContext context) {
+                                      return AlertDialog(
+                                        title: Center(
+                                            child: Text(
+                                                "Descreva as informações do veiculo")),
+                                        actions: [
+                                          TextFormField(
+                                            decoration: InputDecoration(
+                                              labelText: "Marca",
+                                            ),
+                                          ),
+                                          TextFormField(
+                                            decoration: InputDecoration(
+                                              labelText: "Modelo",
+                                            ),
+                                          ),
+                                          TextFormField(
+                                            decoration: InputDecoration(
+                                              labelText: "Motor",
+                                            ),
+                                          ),
+                                          TextFormField(
+                                            decoration: InputDecoration(
+                                              labelText: "Ano",
+                                            ),
+                                          ),
+                                          TextFormField(
+                                            decoration: InputDecoration(
+                                              labelText: "Placa",
+                                            ),
+                                          ),
+                                          SizedBox(height: 10),
+                                          Center(
+                                            child: TextButton(
+                                                onPressed: () {},
+                                                child: Text("Cadastrar")),
+                                          )
+                                        ],
+                                      );
+                                    },
+                                  );
+                                },
                                 child: Text("Cadastro de Veiculos"),
                               ),
                             ),
@@ -74,7 +118,7 @@ class _PageInicioState extends State<PageInicio> {
                                       return StatefulBuilder(
                                           builder: (context, setState) {
                                         return AlertDialog(
-                                          title: Text("Deseja sair?"),
+                                          title: Text("Cadastre o funcionario"),
                                           actions: [
                                             DropdownButton(
                                                 value: valoresInicio,
