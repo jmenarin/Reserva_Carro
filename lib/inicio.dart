@@ -1,4 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:reserva_carro/cadastrofuncionario.dart';
+import 'package:reserva_carro/cadastroveiculos.dart';
+import 'package:reserva_carro/logo.dart';
+import 'package:reserva_carro/solicitarveiculo.dart';
 
 class PageInicio extends StatefulWidget {
   @override
@@ -56,108 +60,12 @@ class _PageInicioState extends State<PageInicio> {
                       child: Container(
                         child: Column(
                           children: [
-                            Align(
-                              alignment: Alignment.centerLeft,
-                              child: InkWell(
-                                onTap: () {
-                                  showDialog(
-                                    context: context,
-                                    builder: (BuildContext context) {
-                                      return AlertDialog(
-                                        title: Center(
-                                            child: Text(
-                                                "Descreva as informações do veiculo")),
-                                        actions: [
-                                          TextFormField(
-                                            decoration: InputDecoration(
-                                              labelText: "Marca",
-                                            ),
-                                          ),
-                                          TextFormField(
-                                            decoration: InputDecoration(
-                                              labelText: "Modelo",
-                                            ),
-                                          ),
-                                          TextFormField(
-                                            decoration: InputDecoration(
-                                              labelText: "Motor",
-                                            ),
-                                          ),
-                                          TextFormField(
-                                            decoration: InputDecoration(
-                                              labelText: "Ano",
-                                            ),
-                                          ),
-                                          TextFormField(
-                                            decoration: InputDecoration(
-                                              labelText: "Placa",
-                                            ),
-                                          ),
-                                          SizedBox(height: 10),
-                                          Center(
-                                            child: TextButton(
-                                                onPressed: () {},
-                                                child: Text("Cadastrar")),
-                                          )
-                                        ],
-                                      );
-                                    },
-                                  );
-                                },
-                                child: Text("Cadastro de Veiculos"),
-                              ),
-                            ),
+                            CadastroVeiculos(),
                             SizedBox(height: 20),
-                            Align(
-                              alignment: Alignment.centerLeft,
-                              child: InkWell(
-                                onTap: () {
-                                  showDialog(
-                                    context: context,
-                                    builder: (BuildContext context) {
-                                      return StatefulBuilder(
-                                          builder: (context, setState) {
-                                        return AlertDialog(
-                                          title: Text("Cadastre o funcionario"),
-                                          actions: [
-                                            DropdownButton(
-                                                value: valoresInicio,
-                                                onChanged: (String? value) {
-                                                  setState(() {
-                                                    valoresInicio = value!;
-                                                  });
-                                                },
-                                                items: ["1", "2", "3"]
-                                                    .map((value) {
-                                                  return DropdownMenuItem(
-                                                    value: value,
-                                                    child: Text(value),
-                                                  );
-                                                }).toList())
-                                          ],
-                                        );
-                                      });
-                                    },
-                                  );
-                                },
-                                child: Text("Cadastro de Funcionarios"),
-                              ),
-                            ),
+                            CadastroFuncionarios(),
                             SizedBox(height: 20),
-                            Align(
-                              alignment: Alignment.centerLeft,
-                              child: InkWell(
-                                onTap: () {},
-                                child: Text("Nova Solicitação"),
-                              ),
-                            ),
-                            Container(
-                                height:
-                                    MediaQuery.of(context).size.height * 0.6,
-                                alignment: Alignment.bottomCenter,
-                                child: Image.asset(
-                                  "assets/images/logo-univesp.png",
-                                )),
+                            SolicitarVeiculo(),
+                            Logo(),
                           ],
                         ),
                       ),
@@ -166,7 +74,7 @@ class _PageInicioState extends State<PageInicio> {
                 ),
               ),
               Container(
-                color: Colors.blue,
+                color: Colors.green,
                 width: MediaQuery.of(context).size.width * 0.8,
                 height: MediaQuery.of(context).size.height * 0.9,
               ),
