@@ -1,5 +1,5 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
-import 'package:reserva_carro/variaveis.dart';
 
 class CadastroFuncionarios extends StatefulWidget {
   @override
@@ -8,6 +8,7 @@ class CadastroFuncionarios extends StatefulWidget {
 
 class _CadastroFuncionariosState extends State<CadastroFuncionarios> {
   TextEditingController nomecontroller = TextEditingController();
+  TextEditingController crachacontroller = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
@@ -29,6 +30,7 @@ class _CadastroFuncionariosState extends State<CadastroFuncionarios> {
                       ),
                     ),
                     TextFormField(
+                      controller: crachacontroller,
                       decoration: InputDecoration(
                         labelText: "Cracha",
                       ),
@@ -42,9 +44,15 @@ class _CadastroFuncionariosState extends State<CadastroFuncionarios> {
                     Center(
                       child: TextButton(
                           onPressed: () {
-                            listateste.add(nomecontroller.text);
+                            FirebaseFirestore.instance
+                                .collection("Nomes")
+                                .doc("Nome1")
+                                .set({
+                              crachacontroller.text: nomecontroller.text
+                            });
                             Navigator.pop(context);
                             nomecontroller.clear();
+                            crachacontroller.clear();
                           },
                           child: Text("Cadastrar")),
                     ),

@@ -1,3 +1,4 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:reserva_carro/cadastrofuncionario.dart';
 import 'package:reserva_carro/cadastroveiculos.dart';
@@ -13,6 +14,9 @@ class _PageInicioState extends State<PageInicio> {
   String valoresInicio = "1";
   @override
   Widget build(BuildContext context) {
+    var teste = FirebaseFirestore.instance.collection("Nomes");
+    teste.doc("Nome1").set({"A": "B"});
+
     return Scaffold(
       body: Column(
         children: [
@@ -29,7 +33,7 @@ class _PageInicioState extends State<PageInicio> {
                     "Reserve seu carro",
                     style: TextStyle(color: Colors.white, fontSize: 50),
                   ),
-                  Image.asset("assets/images/carro.png")
+                  Image.asset("assets/images/carro.png"),
                 ],
               ),
             ),

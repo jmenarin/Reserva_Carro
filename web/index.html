@@ -27,28 +27,25 @@
   <link rel="manifest" href="manifest.json">
 </head>
 <body>
-  <!-- This script installs service_worker.js to provide PWA functionality to
-       application. For more information, see:
-       https://developers.google.com/web/fundamentals/primers/service-workers -->
-       <script type="module">
-        // Import the functions you need from the SDKs you need
-        import { initializeApp } from "https://www.gstatic.com/firebasejs/9.0.2/firebase-app.js";
-        // TODO: Add SDKs for Firebase products that you want to use
-        // https://firebase.google.com/docs/web/setup#available-libraries
-      
-        // Your web app's Firebase configuration
-        const firebaseConfig = {
-          apiKey: "AIzaSyBMx-j1_y01xpzxZHCDYF5k4J2clYQM0MI",
-          authDomain: "controlecarros-a201b.firebaseapp.com",
-          projectId: "controlecarros-a201b",
-          storageBucket: "controlecarros-a201b.appspot.com",
-          messagingSenderId: "769239728459",
-          appId: "1:769239728459:web:a2df4e4cdc881943b9a8ce"
-        };
-      
-        // Initialize Firebase
-        const app = initializeApp(firebaseConfig);
-      </script>
+  
+    
+    <script src="https://www.gstatic.com/firebasejs/8.6.2/firebase-app.js"></script>
+<script src="https://www.gstatic.com/firebasejs/7.17.1/firebase-firestore.js"></script>
+<script>
+    // Your web app's Firebase configuration
+    const firebaseConfig = {
+      apiKey: "AIzaSyBMx-j1_y01xpzxZHCDYF5k4J2clYQM0MI",
+      authDomain: "controlecarros-a201b.firebaseapp.com",
+      databaseURL: "https://controlecarros-a201b-default-rtdb.firebaseio.com",
+      projectId: "controlecarros-a201b",
+      storageBucket: "controlecarros-a201b.appspot.com",
+      messagingSenderId: "769239728459",
+      appId: "1:769239728459:web:a2df4e4cdc881943b9a8ce"
+    };
+  
+    // Initialize Firebase
+    firebase.initializeApp(firebaseConfig);
+  </script>
   <script>
     var serviceWorkerVersion = null;
     var scriptLoaded = false;
