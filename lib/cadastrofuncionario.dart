@@ -9,6 +9,8 @@ class CadastroFuncionarios extends StatefulWidget {
 class _CadastroFuncionariosState extends State<CadastroFuncionarios> {
   TextEditingController nomecontroller = TextEditingController();
   TextEditingController crachacontroller = TextEditingController();
+  TextEditingController setorcontroller = TextEditingController();
+  bool botao = true;
 
   @override
   Widget build(BuildContext context) {
@@ -36,6 +38,7 @@ class _CadastroFuncionariosState extends State<CadastroFuncionarios> {
                       ),
                     ),
                     TextFormField(
+                      controller: setorcontroller,
                       decoration: InputDecoration(
                         labelText: "Setor",
                       ),
@@ -44,15 +47,31 @@ class _CadastroFuncionariosState extends State<CadastroFuncionarios> {
                     Center(
                       child: TextButton(
                           onPressed: () {
-                            FirebaseFirestore.instance
-                                .collection("Nomes")
-                                .doc("Nome1")
-                                .set({
-                              crachacontroller.text: nomecontroller.text
-                            });
-                            Navigator.pop(context);
-                            nomecontroller.clear();
-                            crachacontroller.clear();
+                            if (nomecontroller.text != "" &&
+                                crachacontroller.text != "" &&
+                                setorcontroller.text != "") {
+                              FirebaseFirestore.instance
+                                  .collection("Funcionarios")
+                                  .doc(crachacontroller.text)
+                                  .set({
+                                "Nome": nomecontroller.text,
+                                "Setor": setorcontroller.text,
+                              });
+                              Navigator.pop(context);
+                              nomecontroller.clear();
+                              crachacontroller.clear();
+                              setorcontroller.clear();
+                              ScaffoldMessenger.of(context).showSnackBar(
+                                  SnackBar(
+                                      backgroundColor: Colors.green,
+                                      content: Text("Funcionario cadastrado")));
+                            } else {
+                              ScaffoldMessenger.of(context).showSnackBar(
+                                  SnackBar(
+                                      backgroundColor: Colors.red,
+                                      content:
+                                          Text("Existe campos em branco")));
+                            }
                           },
                           child: Text("Cadastrar")),
                     ),
