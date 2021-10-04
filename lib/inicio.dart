@@ -1,4 +1,3 @@
-import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:reserva_carro/cadastrofuncionario.dart';
 import 'package:reserva_carro/cadastroveiculos.dart';
@@ -12,11 +11,9 @@ class PageInicio extends StatefulWidget {
 
 class _PageInicioState extends State<PageInicio> {
   String valoresInicio = "1";
+
   @override
   Widget build(BuildContext context) {
-    var teste = FirebaseFirestore.instance.collection("Nomes");
-    teste.doc("Nome1").set({"A": "B"});
-
     return Scaffold(
       body: Column(
         children: [
