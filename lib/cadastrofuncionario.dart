@@ -13,11 +13,11 @@ class _CadastroFuncionariosState extends State<CadastroFuncionarios> {
   bool botao = true;
   verificarlogin() async {
     try {
-      var result = await FirebaseFirestore.instance
-          .collection("Usuarios")
-          .doc("12")
-          .get();
-      print(result.id);
+      QuerySnapshot result =
+          await FirebaseFirestore.instance.collection("Funcionarios").get();
+      result.docs.forEach((element) {
+        print(element.id);
+      });
     } catch (e) {}
   }
 

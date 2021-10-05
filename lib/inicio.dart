@@ -3,6 +3,7 @@ import 'package:reserva_carro/cadastrofuncionario.dart';
 import 'package:reserva_carro/cadastroveiculos.dart';
 import 'package:reserva_carro/logo.dart';
 import 'package:reserva_carro/solicitarveiculo.dart';
+import 'package:reserva_carro/variaveis.dart';
 
 class PageInicio extends StatefulWidget {
   @override
@@ -75,10 +76,14 @@ class _PageInicioState extends State<PageInicio> {
                 ),
               ),
               Container(
-                color: Colors.green,
-                width: MediaQuery.of(context).size.width * 0.8,
-                height: MediaQuery.of(context).size.height * 0.9,
-              ),
+                  color: Colors.green,
+                  width: MediaQuery.of(context).size.width * 0.8,
+                  height: MediaQuery.of(context).size.height * 0.9,
+                  child: ListView.builder(
+                      itemCount: teste.length,
+                      itemBuilder: (BuildContext context, index) {
+                        return Text(teste[index]);
+                      }))
             ],
           )
         ],

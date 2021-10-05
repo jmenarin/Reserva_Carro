@@ -1,3 +1,4 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:reserva_carro/variaveis.dart';
 
@@ -7,7 +8,9 @@ class SolicitarVeiculo extends StatefulWidget {
 }
 
 class _SolicitarVeiculoState extends State<SolicitarVeiculo> {
-  var valoresInicio;
+  String valoresInicio = listateste.last;
+
+  Color corteste = Colors.red;
 
   @override
   Widget build(BuildContext context) {
@@ -15,6 +18,7 @@ class _SolicitarVeiculoState extends State<SolicitarVeiculo> {
       alignment: Alignment.centerLeft,
       child: InkWell(
         onTap: () {
+          verificarlogin();
           showDialog(
               context: context,
               builder: (BuildContext context) {
@@ -32,10 +36,10 @@ class _SolicitarVeiculoState extends State<SolicitarVeiculo> {
                             children: [
                               Text("Veiculo"),
                               DropdownButton<String>(
-                                  
                                   value: valoresInicio,
                                   onChanged: (String? value) {
                                     setState(() {
+                                      verificarlogin();
                                       valoresInicio = value!;
                                     });
                                   },
@@ -45,6 +49,10 @@ class _SolicitarVeiculoState extends State<SolicitarVeiculo> {
                                       child: Text(value),
                                     );
                                   }).toList()),
+                              Container(
+                                color: corteste,
+                                width: 60,
+                              ),
                             ],
                           ),
                         ),
@@ -57,5 +65,15 @@ class _SolicitarVeiculoState extends State<SolicitarVeiculo> {
         child: Text("Nova solicitação"),
       ),
     );
+  }
+
+  verificarlogin() async {
+    try {
+      QuerySnapshot result =
+          await FirebaseFirestore.instance.collection("Funcionarios").get();
+      result.docs.forEach((element) {
+        print("Ola");
+      });
+    } catch (e) {}
   }
 }
