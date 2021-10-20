@@ -1,3 +1,4 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:reserva_carro/cadastrofuncionario.dart';
 import 'package:reserva_carro/cadastroveiculos.dart';
@@ -76,18 +77,54 @@ class _PageInicioState extends State<PageInicio> {
                 ),
               ),
               Container(
-                  color: Colors.green,
-                  width: MediaQuery.of(context).size.width * 0.8,
-                  height: MediaQuery.of(context).size.height * 0.9,
-                  child: ListView.builder(
-                      itemCount: teste.length,
-                      itemBuilder: (BuildContext context, index) {
-                        return Text(teste[index]);
-                      }))
+                child: Column(
+                  children: [
+                    Container(
+                        color: Colors.green,
+                        width: MediaQuery.of(context).size.width * 0.8,
+                        height: MediaQuery.of(context).size.height * 0.7,
+                        child: ListView.builder(
+                            itemCount: teste.length,
+                            itemBuilder: (BuildContext context, index) {
+                              return Container(
+                                  color: Colors.red,
+                                  height: 30,
+                                  child: Row(
+                                    mainAxisAlignment:
+                                        MainAxisAlignment.spaceAround,
+                                    children: [Text("Ola")],
+                                  ));
+                            })),
+                    Container(
+                        width: MediaQuery.of(context).size.width * 0.8,
+                        height: MediaQuery.of(context).size.height * 0.2,
+                        color: Colors.red,
+                        child: Row(
+                          children: [
+                            IconButton(
+                                onPressed: () {
+                                  setState(() {
+                                    verifica();
+                                  });
+                                },
+                                icon: Icon(Icons.refresh)),
+                            TextButton(onPressed: () {}, child: Text("Novo*"))
+                          ],
+                        ))
+                  ],
+                ),
+              ),
             ],
           )
         ],
       ),
     );
+  }
+
+  verifica() {
+    var result =
+        FirebaseFirestore.instance.collection("Funcionarios").doc("1234").get();
+
+    print(result);
   }
 }

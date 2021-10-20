@@ -11,15 +11,7 @@ class _CadastroFuncionariosState extends State<CadastroFuncionarios> {
   TextEditingController crachacontroller = TextEditingController();
   TextEditingController setorcontroller = TextEditingController();
   bool botao = true;
-  verificarlogin() async {
-    try {
-      QuerySnapshot result =
-          await FirebaseFirestore.instance.collection("Funcionarios").get();
-      result.docs.forEach((element) {
-        print(element.id);
-      });
-    } catch (e) {}
-  }
+ 
 
   @override
   Widget build(BuildContext context) {
@@ -27,7 +19,6 @@ class _CadastroFuncionariosState extends State<CadastroFuncionarios> {
       alignment: Alignment.centerLeft,
       child: InkWell(
         onTap: () {
-          verificarlogin();
           showDialog(
             context: context,
             builder: (BuildContext context) {

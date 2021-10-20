@@ -9,8 +9,7 @@ class SolicitarVeiculo extends StatefulWidget {
 
 class _SolicitarVeiculoState extends State<SolicitarVeiculo> {
   String valoresInicio = listateste.last;
-
-  Color corteste = Colors.red;
+  int a = 6;
 
   @override
   Widget build(BuildContext context) {
@@ -19,6 +18,7 @@ class _SolicitarVeiculoState extends State<SolicitarVeiculo> {
       child: InkWell(
         onTap: () {
           verificarlogin();
+
           showDialog(
               context: context,
               builder: (BuildContext context) {
@@ -39,7 +39,6 @@ class _SolicitarVeiculoState extends State<SolicitarVeiculo> {
                                   value: valoresInicio,
                                   onChanged: (String? value) {
                                     setState(() {
-                                      verificarlogin();
                                       valoresInicio = value!;
                                     });
                                   },
@@ -49,10 +48,6 @@ class _SolicitarVeiculoState extends State<SolicitarVeiculo> {
                                       child: Text(value),
                                     );
                                   }).toList()),
-                              Container(
-                                color: corteste,
-                                width: 60,
-                              ),
                             ],
                           ),
                         ),
@@ -72,7 +67,10 @@ class _SolicitarVeiculoState extends State<SolicitarVeiculo> {
       QuerySnapshot result =
           await FirebaseFirestore.instance.collection("Funcionarios").get();
       result.docs.forEach((element) {
-        print("Ola");
+        setState(() {
+          teste.add(a++);
+          print(teste);
+        });
       });
     } catch (e) {}
   }
