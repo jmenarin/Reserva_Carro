@@ -13,6 +13,9 @@ class PageInicio extends StatefulWidget {
 
 class _PageInicioState extends State<PageInicio> {
   String valoresInicio = "1";
+  String ver = "";
+  String olhar = "";
+  String seila = "";
 
   @override
   Widget build(BuildContext context) {
@@ -92,7 +95,7 @@ class _PageInicioState extends State<PageInicio> {
                                   child: Row(
                                     mainAxisAlignment:
                                         MainAxisAlignment.spaceAround,
-                                    children: [Text("Ola")],
+                                    children: [Text(teste[index])],
                                   ));
                             })),
                     Container(
@@ -105,6 +108,7 @@ class _PageInicioState extends State<PageInicio> {
                                 onPressed: () {
                                   setState(() {
                                     verifica();
+                                    verifique();
                                   });
                                 },
                                 icon: Icon(Icons.refresh)),
@@ -121,10 +125,29 @@ class _PageInicioState extends State<PageInicio> {
     );
   }
 
-  verifica() {
-    var result =
-        FirebaseFirestore.instance.collection("Funcionarios").doc("1234").get();
+  verifica() async {
+    try {
+      DocumentSnapshot result = await FirebaseFirestore.instance
+          .collection("Funcionarios")
+          .doc("1234")
+          .get();
+      setState(() {
+        print(result.get("Nome"));
+        ver = result.get("Nome");
+      });
+    } catch (e) {}
+  }
 
-    print(result);
+  verifique() async {
+    try {
+      DocumentSnapshot result = await FirebaseFirestore.instance
+          .collection("Funcionarios")
+          .doc("1234")
+          .get();
+      setState(() {
+        print(result.get("Setor"));
+        olhar = result.get("Setor");
+      });
+    } catch (e) {}
   }
 }
