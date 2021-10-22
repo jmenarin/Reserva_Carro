@@ -19,6 +19,7 @@ class _PageInicioState extends State<PageInicio> {
 
   @override
   Widget build(BuildContext context) {
+    verifica();
     return Scaffold(
       body: Column(
         children: [
@@ -108,7 +109,6 @@ class _PageInicioState extends State<PageInicio> {
                                 onPressed: () {
                                   setState(() {
                                     verifica();
-                                    verifique();
                                   });
                                 },
                                 icon: Icon(Icons.refresh)),
@@ -127,26 +127,18 @@ class _PageInicioState extends State<PageInicio> {
 
   verifica() async {
     try {
-      DocumentSnapshot result = await FirebaseFirestore.instance
-          .collection("Funcionarios")
-          .doc("1234")
-          .get();
-      setState(() {
-        print(result.get("Nome"));
-        ver = result.get("Nome");
-      });
-    } catch (e) {}
-  }
+      QuerySnapshot result =
+          await FirebaseFirestore.instance.collection("Funcionarios").get();
+      result.docs.forEach((element) {
+        setState(() {
+          if (teste.contains(element.id)) {
+          } else {
+            teste.add(element.id);
+          }
+          print(teste);
 
-  verifique() async {
-    try {
-      DocumentSnapshot result = await FirebaseFirestore.instance
-          .collection("Funcionarios")
-          .doc("1234")
-          .get();
-      setState(() {
-        print(result.get("Setor"));
-        olhar = result.get("Setor");
+          // teste.add(result);
+        });
       });
     } catch (e) {}
   }
