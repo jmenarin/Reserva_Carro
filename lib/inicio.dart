@@ -16,6 +16,8 @@ class _PageInicioState extends State<PageInicio> {
   String ver = "";
   String olhar = "";
   String seila = "";
+  String nome = "";
+  String tes = "";
 
   @override
   Widget build(BuildContext context) {
@@ -88,7 +90,7 @@ class _PageInicioState extends State<PageInicio> {
                         width: MediaQuery.of(context).size.width * 0.8,
                         height: MediaQuery.of(context).size.height * 0.7,
                         child: ListView.builder(
-                            itemCount: teste.length,
+                            itemCount: cadastro.length,
                             itemBuilder: (BuildContext context, index) {
                               return Container(
                                   color: Colors.red,
@@ -96,7 +98,21 @@ class _PageInicioState extends State<PageInicio> {
                                   child: Row(
                                     mainAxisAlignment:
                                         MainAxisAlignment.spaceAround,
-                                    children: [Text(teste[index])],
+                                    children: [
+                                      Text(cadastro.keys
+                                          .elementAt(index)
+                                          .toString()),
+                                      Text(
+                                        cadastro.values
+                                            .elementAt(index)["Setor"]
+                                            .toString(),
+                                      ),
+                                      Text(
+                                        cadastro.values
+                                            .elementAt(index)["Nome"]
+                                            .toString(),
+                                      )
+                                    ],
                                   ));
                             })),
                     Container(
@@ -130,14 +146,11 @@ class _PageInicioState extends State<PageInicio> {
       QuerySnapshot result =
           await FirebaseFirestore.instance.collection("Funcionarios").get();
       result.docs.forEach((element) {
-        setState(() {
-          if (teste.contains(element.id)) {
-          } else {
-            teste.add(element.id);
+        cadastro.addAll({
+          element.id: {
+            "Nome": element.get("Nome"),
+            "Setor": element.get("Setor")
           }
-          print(teste);
-
-          // teste.add(result);
         });
       });
     } catch (e) {}

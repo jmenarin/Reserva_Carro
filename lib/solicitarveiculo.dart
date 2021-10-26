@@ -8,17 +8,17 @@ class SolicitarVeiculo extends StatefulWidget {
 }
 
 class _SolicitarVeiculoState extends State<SolicitarVeiculo> {
-  String valoresInicio = listateste.last;
+  TextEditingController testecontroller = TextEditingController();
+  String valoresInicio = testar.last;
   int a = 6;
 
   @override
   Widget build(BuildContext context) {
+    verificar();
     return Align(
       alignment: Alignment.centerLeft,
       child: InkWell(
         onTap: () {
-          verificarlogin();
-
           showDialog(
               context: context,
               builder: (BuildContext context) {
@@ -34,7 +34,7 @@ class _SolicitarVeiculoState extends State<SolicitarVeiculo> {
                           child: Row(
                             mainAxisAlignment: MainAxisAlignment.spaceAround,
                             children: [
-                              Text("Veiculo"),
+                              Text("Nome"),
                               DropdownButton<String>(
                                   value: valoresInicio,
                                   onChanged: (String? value) {
@@ -42,7 +42,7 @@ class _SolicitarVeiculoState extends State<SolicitarVeiculo> {
                                       valoresInicio = value!;
                                     });
                                   },
-                                  items: listateste.map((value) {
+                                  items: testar.map((value) {
                                     return DropdownMenuItem<String>(
                                       value: value,
                                       child: Text(value),
@@ -51,6 +51,46 @@ class _SolicitarVeiculoState extends State<SolicitarVeiculo> {
                             ],
                           ),
                         ),
+                        Container(
+                          color: Colors.black12,
+                          height: 30,
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceAround,
+                            children: [
+                              Text("Nome"),
+                              DropdownButton<String>(
+                                  value: valoresInicio,
+                                  onChanged: (String? value) {
+                                    setState(() {
+                                      valoresInicio = value!;
+                                    });
+                                  },
+                                  items: testar.map((value) {
+                                    return DropdownMenuItem<String>(
+                                      value: value,
+                                      child: Text(value),
+                                    );
+                                  }).toList()),
+                            ],
+                          ),
+                        ),
+                        Container(
+                            color: Colors.black12,
+                            height: 30,
+                            child: Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceAround,
+                              children: [
+                                Text("Nome"),
+                                Container(
+                                  height: 20,
+                                  width: 100,
+                                  child: TextFormField(
+                                    decoration:
+                                        InputDecoration(hintText: "OLa"),
+                                  ),
+                                ),
+                              ],
+                            )),
                       ],
                     );
                   },
@@ -62,15 +102,12 @@ class _SolicitarVeiculoState extends State<SolicitarVeiculo> {
     );
   }
 
-  verificarlogin() async {
+  verificar() async {
     try {
       QuerySnapshot result =
-          await FirebaseFirestore.instance.collection("Veiculos").get();
+          await FirebaseFirestore.instance.collection("Funcionarios").get();
       result.docs.forEach((element) {
-        setState(() {
-          listateste.add("1");
-          print(element.id);
-        });
+        testar.add(element.get("Nome"));
       });
     } catch (e) {}
   }
