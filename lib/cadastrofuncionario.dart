@@ -11,7 +11,6 @@ class _CadastroFuncionariosState extends State<CadastroFuncionarios> {
   TextEditingController crachacontroller = TextEditingController();
   TextEditingController setorcontroller = TextEditingController();
   bool botao = true;
- 
 
   @override
   Widget build(BuildContext context) {

@@ -14,6 +14,7 @@ class _SolicitarVeiculoState extends State<SolicitarVeiculo> {
   String cracha = "";
   String nome = "";
   String setor = "";
+  
 
   @override
   Widget build(BuildContext context) {
@@ -35,8 +36,8 @@ class _SolicitarVeiculoState extends State<SolicitarVeiculo> {
                           child: Column(
                             children: [
                               Container(
-                                width: MediaQuery.of(context).size.width * 0.5,
-                                height: 100,
+                                width: MediaQuery.of(context).size.width * 0.4,
+                                height: 50,
                                 child: Row(
                                   children: [
                                     Container(
@@ -99,18 +100,107 @@ class _SolicitarVeiculoState extends State<SolicitarVeiculo> {
                                             decoration: BoxDecoration(
                                                 border: Border.all()),
                                             child: Center(child: Text(setor)),
-                                          )
+                                          ),
                                         ],
                                       ),
                                     ),
                                   ],
                                 ),
                               ),
-                              IconButton(
-                                  onPressed: () {
-                                    atualizar(setState);
-                                  },
-                                  icon: Icon(Icons.add))
+                              Container(
+                                color: Colors.yellow,
+                                width: MediaQuery.of(context).size.width * 0.4,
+                                height: 50,
+                                child: Row(children: [
+                                  Column(children: [
+                                    Container(
+                                      width: MediaQuery.of(context).size.width *
+                                          0.1,
+                                      child: Column(
+                                        children: [
+                                          Text("Cracha"),
+                                          Container(
+                                            width: 100,
+                                            height: 30,
+                                            child: TextFormField(
+                                              onEditingComplete: () =>
+                                                  atualizar(setState),
+                                              controller: testecontroller,
+                                              textAlign: TextAlign.center,
+                                              decoration: InputDecoration(
+                                                border: OutlineInputBorder(),
+                                                contentPadding:
+                                                    EdgeInsets.symmetric(
+                                                        horizontal: 10),
+                                              ),
+                                            ),
+                                          )
+                                        ],
+                                      ),
+                                    ),
+                                  ]),
+                                  Column(
+                                    children: [
+                                      Container(
+                                        width:
+                                            MediaQuery.of(context).size.width *
+                                                0.1,
+                                        child: Column(
+                                          children: [
+                                            Text("Cracha"),
+                                            Container(
+                                              width: 100,
+                                              height: 30,
+                                              child: TextFormField(
+                                                onEditingComplete: () =>
+                                                    atualizar(setState),
+                                                controller: testecontroller,
+                                                textAlign: TextAlign.center,
+                                                decoration: InputDecoration(
+                                                  border: OutlineInputBorder(),
+                                                  contentPadding:
+                                                      EdgeInsets.symmetric(
+                                                          horizontal: 10),
+                                                ),
+                                              ),
+                                            )
+                                          ],
+                                        ),
+                                      ),
+                                    ],
+                                  ),
+                                  Column(
+                                    children: [
+                                      Container(
+                                        width:
+                                            MediaQuery.of(context).size.width *
+                                                0.1,
+                                        child: Column(
+                                          children: [
+                                            Text("Cracha"),
+                                            Container(
+                                              width: 100,
+                                              height: 30,
+                                              child: TextFormField(
+                                                onEditingComplete: () =>
+                                                    atualizar(setState),
+                                                controller: testecontroller,
+                                                textAlign: TextAlign.center,
+                                                decoration: InputDecoration(
+                                                  border: OutlineInputBorder(),
+                                                  contentPadding:
+                                                      EdgeInsets.symmetric(
+                                                          horizontal: 10),
+                                                ),
+                                              ),
+                                            )
+                                          ],
+                                        ),
+                                      ),
+                                    ],
+                                  ),
+                                ]),
+                              )
                             ],
                           ),
                         )
