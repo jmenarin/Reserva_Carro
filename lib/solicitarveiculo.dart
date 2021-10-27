@@ -11,7 +11,9 @@ class _SolicitarVeiculoState extends State<SolicitarVeiculo> {
   TextEditingController testecontroller = TextEditingController();
   String valoresInicio = testar.last;
   int a = 6;
-  String ver = "";
+  String cracha = "";
+  String nome = "";
+  String setor = "";
 
   @override
   Widget build(BuildContext context) {
@@ -47,6 +49,8 @@ class _SolicitarVeiculoState extends State<SolicitarVeiculo> {
                                             width: 100,
                                             height: 30,
                                             child: TextFormField(
+                                              onEditingComplete: () =>
+                                                  atualizar(setState),
                                               controller: testecontroller,
                                               textAlign: TextAlign.center,
                                               decoration: InputDecoration(
@@ -62,13 +66,23 @@ class _SolicitarVeiculoState extends State<SolicitarVeiculo> {
                                     ),
                                     Container(
                                       width: MediaQuery.of(context).size.width *
-                                          0.1,
+                                          0.2,
                                       child: Column(
                                         children: [
-                                          Text("Ola"),
+                                          Text("Nome"),
                                           Container(
-                                            height: 35,
-                                            child: Text(ver),
+                                            width: 300,
+                                            height: 30,
+                                            decoration: BoxDecoration(
+                                                border: Border.all()),
+                                            child: Align(
+                                                alignment: Alignment.centerLeft,
+                                                child: Padding(
+                                                  padding:
+                                                      const EdgeInsets.only(
+                                                          left: 3),
+                                                  child: Text(nome),
+                                                )),
                                           )
                                         ],
                                       ),
@@ -77,14 +91,16 @@ class _SolicitarVeiculoState extends State<SolicitarVeiculo> {
                                       width: MediaQuery.of(context).size.width *
                                           0.1,
                                       child: Column(
-                                        children: [Text("Ola"), Text("3")],
-                                      ),
-                                    ),
-                                    Container(
-                                      width: MediaQuery.of(context).size.width *
-                                          0.1,
-                                      child: Column(
-                                        children: [Text("Ola"), Text("4")],
+                                        children: [
+                                          Text("Setor"),
+                                          Container(
+                                            width: 100,
+                                            height: 30,
+                                            decoration: BoxDecoration(
+                                                border: Border.all()),
+                                            child: Center(child: Text(setor)),
+                                          )
+                                        ],
                                       ),
                                     ),
                                   ],
@@ -92,7 +108,7 @@ class _SolicitarVeiculoState extends State<SolicitarVeiculo> {
                               ),
                               IconButton(
                                   onPressed: () {
-                                    ver = testecontroller.text;
+                                    atualizar(setState);
                                   },
                                   icon: Icon(Icons.add))
                             ],
@@ -119,7 +135,14 @@ class _SolicitarVeiculoState extends State<SolicitarVeiculo> {
     } catch (e) {}
   }
 
-  atualizar() {
-    setState(() {});
+  atualizar(setState) {
+    setState(() {
+      cracha = testecontroller.text;
+      if (cadastro.containsKey(cracha)) {
+        // ignore: unnecessary_statements
+        nome = cadastro[cracha]!["Nome"];
+        setor = cadastro[cracha]!["Setor"];
+      }
+    });
   }
 }
