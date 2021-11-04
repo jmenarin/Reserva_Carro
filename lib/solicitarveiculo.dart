@@ -1,5 +1,8 @@
+import 'package:brasil_fields/brasil_fields.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
+import 'package:intl/intl.dart';
 import 'package:reserva_carro/variaveis.dart';
 
 class SolicitarVeiculo extends StatefulWidget {
@@ -9,12 +12,16 @@ class SolicitarVeiculo extends StatefulWidget {
 
 class _SolicitarVeiculoState extends State<SolicitarVeiculo> {
   TextEditingController testecontroller = TextEditingController();
+  TextEditingController saidacontroller = TextEditingController();
+  TextEditingController chegadacontroller = TextEditingController();
   String valoresInicio = testar.last;
   int a = 6;
   String cracha = "";
   String nome = "";
   String setor = "";
-  
+  DateTime date = DateTime.now();
+  String date1 = "";
+  String horapadrao = "00:00";
 
   @override
   Widget build(BuildContext context) {
@@ -112,20 +119,57 @@ class _SolicitarVeiculoState extends State<SolicitarVeiculo> {
                                 width: MediaQuery.of(context).size.width * 0.4,
                                 height: 50,
                                 child: Row(children: [
+                                  Column(
+                                    children: [
+                                      Container(
+                                        width:
+                                            MediaQuery.of(context).size.width *
+                                                0.15,
+                                        child: Column(
+                                          children: [
+                                            Text("Dia"),
+                                            GestureDetector(
+                                                onTap: () async {
+                                                  date = (await showDatePicker(
+                                                      context: context,
+                                                      initialDate:
+                                                          DateTime.now(),
+                                                      firstDate: DateTime.now(),
+                                                      lastDate:
+                                                          DateTime(2040)))!;
+
+                                                  verify(setState);
+                                                },
+                                                child: Container(
+                                                  width: 100,
+                                                  height: 30,
+                                                  color: Colors.red,
+                                                  child: Text(date1),
+                                                ))
+                                          ],
+                                        ),
+                                      ),
+                                    ],
+                                  ),
                                   Column(children: [
                                     Container(
                                       width: MediaQuery.of(context).size.width *
-                                          0.1,
+                                          0.15,
                                       child: Column(
                                         children: [
-                                          Text("Cracha"),
+                                          Text("Hora Saida"),
                                           Container(
                                             width: 100,
                                             height: 30,
                                             child: TextFormField(
+                                              inputFormatters: [
+                                                FilteringTextInputFormatter
+                                                    .digitsOnly,
+                                                HoraInputFormatter(),
+                                              ],
                                               onEditingComplete: () =>
                                                   atualizar(setState),
-                                              controller: testecontroller,
+                                              controller: saidacontroller,
                                               textAlign: TextAlign.center,
                                               decoration: InputDecoration(
                                                 border: OutlineInputBorder(),
@@ -144,47 +188,22 @@ class _SolicitarVeiculoState extends State<SolicitarVeiculo> {
                                       Container(
                                         width:
                                             MediaQuery.of(context).size.width *
-                                                0.1,
+                                                0.15,
                                         child: Column(
                                           children: [
-                                            Text("Cracha"),
+                                            Text("Hora Chegada"),
                                             Container(
                                               width: 100,
                                               height: 30,
                                               child: TextFormField(
+                                                inputFormatters: [
+                                                  FilteringTextInputFormatter
+                                                      .digitsOnly,
+                                                  HoraInputFormatter(),
+                                                ],
                                                 onEditingComplete: () =>
                                                     atualizar(setState),
-                                                controller: testecontroller,
-                                                textAlign: TextAlign.center,
-                                                decoration: InputDecoration(
-                                                  border: OutlineInputBorder(),
-                                                  contentPadding:
-                                                      EdgeInsets.symmetric(
-                                                          horizontal: 10),
-                                                ),
-                                              ),
-                                            )
-                                          ],
-                                        ),
-                                      ),
-                                    ],
-                                  ),
-                                  Column(
-                                    children: [
-                                      Container(
-                                        width:
-                                            MediaQuery.of(context).size.width *
-                                                0.1,
-                                        child: Column(
-                                          children: [
-                                            Text("Cracha"),
-                                            Container(
-                                              width: 100,
-                                              height: 30,
-                                              child: TextFormField(
-                                                onEditingComplete: () =>
-                                                    atualizar(setState),
-                                                controller: testecontroller,
+                                                controller: chegadacontroller,
                                                 textAlign: TextAlign.center,
                                                 decoration: InputDecoration(
                                                   border: OutlineInputBorder(),
@@ -213,6 +232,13 @@ class _SolicitarVeiculoState extends State<SolicitarVeiculo> {
         child: Text("Nova solicitação"),
       ),
     );
+  }
+
+  verify(setState) {
+    setState(() {
+      DateFormat format = DateFormat('dd/MM/yyyy');
+      date1 = format.format(date);
+    });
   }
 
   verificar() async {
