@@ -112,6 +112,24 @@ class _PageInicioState extends State<PageInicio> {
                                             .elementAt(index)["Nome"]
                                             .toString(),
                                       )
+                                      /*Text(solicitacoes.values
+                                          .elementAt(index)["Nome"]
+                                          .toString()),
+                                      Text(solicitacoes.values
+                                          .elementAt(index)["Setor"]
+                                          .toString()),
+                                      Text(solicitacoes.values
+                                          .elementAt(index)["Cracha"]
+                                          .toString()),
+                                      Text(solicitacoes.values
+                                          .elementAt(index)["Carro"]
+                                          .toString()),
+                                      Text(solicitacoes.values
+                                          .elementAt(index)["Hora-Saida"]
+                                          .toString()),
+                                      Text(solicitacoes.values
+                                          .elementAt(index)["Hora-Chegada"]
+                                          .toString()),*/
                                     ],
                                   ));
                             })),
@@ -124,7 +142,7 @@ class _PageInicioState extends State<PageInicio> {
                             IconButton(
                                 onPressed: () {
                                   setState(() {
-                                    verifica();
+                                    //verifica();
                                   });
                                 },
                                 icon: Icon(Icons.refresh)),
@@ -145,6 +163,7 @@ class _PageInicioState extends State<PageInicio> {
     try {
       QuerySnapshot result =
           await FirebaseFirestore.instance.collection("Funcionarios").get();
+      setState(() {});
       result.docs.forEach((element) {
         cadastro.addAll({
           element.id: {
