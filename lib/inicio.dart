@@ -22,6 +22,7 @@ class _PageInicioState extends State<PageInicio> {
   @override
   Widget build(BuildContext context) {
     verifica();
+
     return Scaffold(
       body: Column(
         children: [
@@ -74,6 +75,12 @@ class _PageInicioState extends State<PageInicio> {
                             CadastroFuncionarios(),
                             SizedBox(height: 20),
                             SolicitarVeiculo(),
+                            SizedBox(height: 50),
+                            IconButton(
+                                onPressed: () {
+                                  setState(() {});
+                                },
+                                icon: Icon(Icons.refresh)),
                             Logo(),
                           ],
                         ),
@@ -86,69 +93,237 @@ class _PageInicioState extends State<PageInicio> {
                 child: Column(
                   children: [
                     Container(
-                        color: Colors.green,
-                        width: MediaQuery.of(context).size.width * 0.8,
-                        height: MediaQuery.of(context).size.height * 0.7,
-                        child: ListView.builder(
-                            itemCount: cadastro.length,
-                            itemBuilder: (BuildContext context, index) {
-                              return Container(
-                                  color: Colors.red,
-                                  height: 30,
-                                  child: Row(
-                                    mainAxisAlignment:
-                                        MainAxisAlignment.spaceAround,
-                                    children: [
-                                      Text(cadastro.keys
-                                          .elementAt(index)
-                                          .toString()),
-                                      Text(
-                                        cadastro.values
-                                            .elementAt(index)["Setor"]
-                                            .toString(),
-                                      ),
-                                      Text(
-                                        cadastro.values
-                                            .elementAt(index)["Nome"]
-                                            .toString(),
-                                      )
-                                      /*Text(solicitacoes.values
-                                          .elementAt(index)["Nome"]
-                                          .toString()),
-                                      Text(solicitacoes.values
-                                          .elementAt(index)["Setor"]
-                                          .toString()),
-                                      Text(solicitacoes.values
-                                          .elementAt(index)["Cracha"]
-                                          .toString()),
-                                      Text(solicitacoes.values
-                                          .elementAt(index)["Carro"]
-                                          .toString()),
-                                      Text(solicitacoes.values
-                                          .elementAt(index)["Hora-Saida"]
-                                          .toString()),
-                                      Text(solicitacoes.values
-                                          .elementAt(index)["Hora-Chegada"]
-                                          .toString()),*/
-                                    ],
-                                  ));
-                            })),
+                      color: Colors.grey,
+                      width: MediaQuery.of(context).size.width * 0.8,
+                      height: MediaQuery.of(context).size.height * 0.05,
+                      child: Row(
+                        children: [
+                          Container(
+                            decoration: BoxDecoration(
+                                border: Border.all(color: Colors.black)),
+                            height: MediaQuery.of(context).size.height * 0.05,
+                            width: MediaQuery.of(context).size.width * 0.18,
+                            child: Center(child: Text("Nome")),
+                          ),
+                          Container(
+                            decoration: BoxDecoration(
+                                border: Border.all(color: Colors.black)),
+                            height: MediaQuery.of(context).size.height * 0.05,
+                            width: MediaQuery.of(context).size.width * 0.1,
+                            child: Center(child: Text("Setor")),
+                          ),
+                          Container(
+                            decoration: BoxDecoration(
+                                border: Border.all(color: Colors.black)),
+                            height: MediaQuery.of(context).size.height * 0.05,
+                            width: MediaQuery.of(context).size.width * 0.05,
+                            child: Center(child: Text("Cracha")),
+                          ),
+                          Container(
+                            decoration: BoxDecoration(
+                                border: Border.all(color: Colors.black)),
+                            height: MediaQuery.of(context).size.height * 0.05,
+                            width: MediaQuery.of(context).size.width * 0.1,
+                            child: Center(child: Text("Veiculo")),
+                          ),
+                          Container(
+                            decoration: BoxDecoration(
+                                border: Border.all(color: Colors.black)),
+                            height: MediaQuery.of(context).size.height * 0.05,
+                            width: MediaQuery.of(context).size.width * 0.07,
+                            child: Center(child: Text("Dia")),
+                          ),
+                          Container(
+                            decoration: BoxDecoration(
+                                border: Border.all(color: Colors.black)),
+                            height: MediaQuery.of(context).size.height * 0.05,
+                            width: MediaQuery.of(context).size.width * 0.05,
+                            child: Center(child: Text("Saida")),
+                          ),
+                          Container(
+                            decoration: BoxDecoration(
+                                border: Border.all(color: Colors.black)),
+                            height: MediaQuery.of(context).size.height * 0.05,
+                            width: MediaQuery.of(context).size.width * 0.05,
+                            child: Center(child: Text("Chegada")),
+                          ),
+                          Container(
+                            decoration: BoxDecoration(
+                                border: Border.all(color: Colors.black)),
+                            height: MediaQuery.of(context).size.height * 0.05,
+                            width: MediaQuery.of(context).size.width * 0.2,
+                            child: Center(child: Text("Destino")),
+                          ),
+                        ],
+                      ),
+                    ),
                     Container(
+                        //color: Colors.green,
                         width: MediaQuery.of(context).size.width * 0.8,
-                        height: MediaQuery.of(context).size.height * 0.2,
-                        color: Colors.red,
-                        child: Row(
-                          children: [
-                            IconButton(
-                                onPressed: () {
-                                  setState(() {
-                                    //verifica();
-                                  });
+                        height: MediaQuery.of(context).size.height * 0.85,
+                        child: ListView.builder(
+                            itemCount: solicitacoes.length,
+                            itemBuilder: (BuildContext context, index) {
+                              return InkWell(
+                                onTap: () {
+                                  showDialog(
+                                      context: context,
+                                      builder: (BuildContext context) {
+                                        return StatefulBuilder(
+                                            builder: (context, setState) {
+                                          return AlertDialog(
+                                              title: Text("Deseja excluir?"),
+                                              actions: [
+                                                TextButton(
+                                                    onPressed: () {
+                                                      Navigator.pop(context);
+                                                    },
+                                                    child: Text("Não")),
+                                                TextButton(
+                                                    onPressed: () {
+                                                      atualizar(setState);
+                                                      solicitacoes.remove(
+                                                          solicitacoes.values
+                                                              .elementAt(index)[
+                                                                  "Cracha"]
+                                                              .toString());
+
+                                                      Navigator.pop(context);
+                                                    },
+                                                    child: Text("Sim")),
+                                              ]);
+                                        });
+                                      });
                                 },
-                                icon: Icon(Icons.refresh)),
-                            TextButton(onPressed: () {}, child: Text("Novo*"))
-                          ],
-                        ))
+                                child: Container(
+                                    height: 30,
+                                    child: Row(
+                                      children: [
+                                        Container(
+                                          decoration: BoxDecoration(
+                                              border: Border.all(
+                                                  color: Colors.black)),
+                                          width: MediaQuery.of(context)
+                                                  .size
+                                                  .width *
+                                              0.18,
+                                          height: 30,
+                                          child: Center(
+                                            child: Text(solicitacoes.values
+                                                .elementAt(index)["Nome"]
+                                                .toString()),
+                                          ),
+                                        ),
+                                        Container(
+                                          decoration: BoxDecoration(
+                                              border: Border.all(
+                                                  color: Colors.black)),
+                                          width: MediaQuery.of(context)
+                                                  .size
+                                                  .width *
+                                              0.1,
+                                          height: 30,
+                                          child: Center(
+                                            child: Text(solicitacoes.values
+                                                .elementAt(index)["Setor"]
+                                                .toString()),
+                                          ),
+                                        ),
+                                        Container(
+                                          decoration: BoxDecoration(
+                                              border: Border.all(
+                                                  color: Colors.black)),
+                                          width: MediaQuery.of(context)
+                                                  .size
+                                                  .width *
+                                              0.05,
+                                          height: 30,
+                                          child: Center(
+                                            child: Text(solicitacoes.values
+                                                .elementAt(index)["Cracha"]
+                                                .toString()),
+                                          ),
+                                        ),
+                                        Container(
+                                          decoration: BoxDecoration(
+                                              border: Border.all(
+                                                  color: Colors.black)),
+                                          width: MediaQuery.of(context)
+                                                  .size
+                                                  .width *
+                                              0.1,
+                                          height: 30,
+                                          child: Center(
+                                            child: Text(solicitacoes.values
+                                                .elementAt(index)["Veiculo"]
+                                                .toString()),
+                                          ),
+                                        ),
+                                        Container(
+                                          decoration: BoxDecoration(
+                                              border: Border.all(
+                                                  color: Colors.black)),
+                                          width: MediaQuery.of(context)
+                                                  .size
+                                                  .width *
+                                              0.07,
+                                          height: 30,
+                                          child: Center(
+                                            child: Text(solicitacoes.values
+                                                .elementAt(index)["Dia"]
+                                                .toString()),
+                                          ),
+                                        ),
+                                        Container(
+                                          decoration: BoxDecoration(
+                                              border: Border.all(
+                                                  color: Colors.black)),
+                                          width: MediaQuery.of(context)
+                                                  .size
+                                                  .width *
+                                              0.05,
+                                          height: 30,
+                                          child: Center(
+                                            child: Text(solicitacoes.values
+                                                .elementAt(index)["Hora-Saida"]
+                                                .toString()),
+                                          ),
+                                        ),
+                                        Container(
+                                          decoration: BoxDecoration(
+                                              border: Border.all(
+                                                  color: Colors.black)),
+                                          width: MediaQuery.of(context)
+                                                  .size
+                                                  .width *
+                                              0.05,
+                                          height: 30,
+                                          child: Center(
+                                            child: Text(solicitacoes.values
+                                                .elementAt(
+                                                    index)["Hora-Chegada"]
+                                                .toString()),
+                                          ),
+                                        ),
+                                        Container(
+                                          decoration: BoxDecoration(
+                                              border: Border.all(
+                                                  color: Colors.black)),
+                                          width: MediaQuery.of(context)
+                                                  .size
+                                                  .width *
+                                              0.2,
+                                          height: 30,
+                                          child: Center(
+                                            child: Text(solicitacoes.values
+                                                .elementAt(index)["Destino"]
+                                                .toString()),
+                                          ),
+                                        ),
+                                      ],
+                                    )),
+                              );
+                            })),
                   ],
                 ),
               ),
@@ -173,5 +348,9 @@ class _PageInicioState extends State<PageInicio> {
         });
       });
     } catch (e) {}
+  }
+
+  atualizar(setState) {
+    setState(() {});
   }
 }

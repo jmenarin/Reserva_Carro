@@ -11,9 +11,6 @@ class SolicitarVeiculo extends StatefulWidget {
 }
 
 class _SolicitarVeiculoState extends State<SolicitarVeiculo> {
-  TextEditingController testecontroller = TextEditingController();
-  TextEditingController saidacontroller = TextEditingController();
-  TextEditingController chegadacontroller = TextEditingController();
   String valoresInicio = testar.last;
   int a = 6;
   String cracha = "";
@@ -29,6 +26,7 @@ class _SolicitarVeiculoState extends State<SolicitarVeiculo> {
   Widget build(BuildContext context) {
     verificar();
     verifica();
+    verifica2();
     return Align(
       alignment: Alignment.centerLeft,
       child: InkWell(
@@ -40,7 +38,8 @@ class _SolicitarVeiculoState extends State<SolicitarVeiculo> {
                   builder: (context, setState) {
                     return AlertDialog(
                       title: Center(
-                          child: Text("Descreva as informações do veiculo")),
+                          child:
+                              Text("Descreva as informações da solicitação")),
                       actions: [
                         Container(
                           child: Column(
@@ -62,7 +61,7 @@ class _SolicitarVeiculoState extends State<SolicitarVeiculo> {
                                             child: TextFormField(
                                               onEditingComplete: () =>
                                                   atualizar(setState),
-                                              controller: testecontroller,
+                                              controller: crachacontroller,
                                               textAlign: TextAlign.center,
                                               decoration: InputDecoration(
                                                 border: OutlineInputBorder(),
@@ -85,7 +84,10 @@ class _SolicitarVeiculoState extends State<SolicitarVeiculo> {
                                             width: 300,
                                             height: 30,
                                             decoration: BoxDecoration(
-                                                border: Border.all()),
+                                                border: Border.all(
+                                                    color: Colors.grey),
+                                                borderRadius:
+                                                    BorderRadius.circular(4)),
                                             child: Align(
                                                 alignment: Alignment.centerLeft,
                                                 child: Padding(
@@ -108,7 +110,10 @@ class _SolicitarVeiculoState extends State<SolicitarVeiculo> {
                                             width: 100,
                                             height: 30,
                                             decoration: BoxDecoration(
-                                                border: Border.all()),
+                                                border: Border.all(
+                                                    color: Colors.grey),
+                                                borderRadius:
+                                                    BorderRadius.circular(4)),
                                             child: Center(child: Text(setor)),
                                           ),
                                         ],
@@ -145,10 +150,16 @@ class _SolicitarVeiculoState extends State<SolicitarVeiculo> {
                                                   }
                                                 },
                                                 child: Container(
+                                                  decoration: BoxDecoration(
+                                                      border: Border.all(
+                                                          color: Colors.grey),
+                                                      borderRadius:
+                                                          BorderRadius.circular(
+                                                              4)),
                                                   width: 100,
                                                   height: 30,
-                                                  color: Colors.red,
-                                                  child: Text(date1),
+                                                  child: Center(
+                                                      child: Text(date1)),
                                                 ))
                                           ],
                                         ),
@@ -235,6 +246,7 @@ class _SolicitarVeiculoState extends State<SolicitarVeiculo> {
                                               width: 150,
                                               height: 30,
                                               child: TextFormField(
+                                                controller: destinocontroller,
                                                 textAlign: TextAlign.center,
                                                 decoration: InputDecoration(
                                                   border: OutlineInputBorder(),
@@ -251,116 +263,23 @@ class _SolicitarVeiculoState extends State<SolicitarVeiculo> {
                                   ),
                                 ]),
                               ),
+                              veiculoselecao(),
                               SizedBox(height: 10),
                               Container(
+                                width: MediaQuery.of(context).size.width * 0.4,
+                                height: 25,
                                 decoration: BoxDecoration(
-                                  color: Colors.blue,
-                                ),
-                                width: MediaQuery.of(context).size.width * 0.4,
-                                height: 25,
-                                child: Row(
-                                  mainAxisAlignment:
-                                      MainAxisAlignment.spaceAround,
-                                  children: [
-                                    Container(
-                                      decoration:
-                                          BoxDecoration(border: Border.all()),
-                                      width: MediaQuery.of(context).size.width *
-                                          0.2,
-                                      child: Center(
-                                          child: Text("Veiculo Selecionado: ")),
-                                    ),
-                                    Container(
-                                      decoration:
-                                          BoxDecoration(border: Border.all()),
-                                      width: MediaQuery.of(context).size.width *
-                                          0.2,
-                                      child: Center(
-                                          child: Text(veiculoselecionado)),
-                                    )
-                                  ],
-                                ),
+                                    color: Colors.grey[400],
+                                    border: Border.all()),
+                                child: Center(
+                                    child: Text(
+                                  "Veiculo Disponiveis",
+                                  style: TextStyle(fontWeight: FontWeight.bold),
+                                )),
                               ),
-                              Container(
-                                color: Colors.blue,
-                                width: MediaQuery.of(context).size.width * 0.4,
-                                height: 25,
-                                child: Row(
-                                  mainAxisAlignment:
-                                      MainAxisAlignment.spaceAround,
-                                  children: [
-                                    Container(
-                                      decoration:
-                                          BoxDecoration(border: Border.all()),
-                                      width: MediaQuery.of(context).size.width *
-                                          0.2,
-                                      child: Center(child: Text("Modelo")),
-                                    ),
-                                    Container(
-                                      decoration:
-                                          BoxDecoration(border: Border.all()),
-                                      width: MediaQuery.of(context).size.width *
-                                          0.2,
-                                      child: Center(child: Text("Placa")),
-                                    )
-                                  ],
-                                ),
-                              ),
-                              Container(
-                                color: Colors.red,
-                                width: MediaQuery.of(context).size.width * 0.4,
-                                height: 90,
-                                child: ListView.builder(
-                                  itemCount: veiculos.length,
-                                  itemBuilder: (BuildContext context, index) {
-                                    return InkWell(
-                                      onTap: () {
-                                        veiculoselecionado = veiculos.values
-                                            .elementAt(index)["Modelo"]
-                                            .toString();
-
-                                        atualizar(setState);
-                                      },
-                                      child: Row(
-                                        mainAxisAlignment:
-                                            MainAxisAlignment.spaceAround,
-                                        children: [
-                                          Container(
-                                            decoration: BoxDecoration(
-                                                border: Border.all()),
-                                            height: 25,
-                                            width: MediaQuery.of(context)
-                                                    .size
-                                                    .width *
-                                                0.2,
-                                            child: Center(
-                                              child: Text(veiculos.values
-                                                  .elementAt(index)["Modelo"]
-                                                  .toString()),
-                                            ),
-                                          ),
-                                          Container(
-                                            decoration: BoxDecoration(
-                                                border: Border.all()),
-                                            height: 25,
-                                            width: MediaQuery.of(context)
-                                                    .size
-                                                    .width *
-                                                0.2,
-                                            child: Center(
-                                              child: Text(veiculos.keys
-                                                  .elementAt(index)
-                                                  .toString()),
-                                            ),
-                                          ),
-                                        ],
-                                      ),
-                                    );
-                                  },
-                                ),
-                              ),
-                              TextButton(
-                                  onPressed: () {}, child: Text("Cadastrar"))
+                              modeloeplaca(),
+                              listaveiculos(),
+                              botaocadastro(),
                             ],
                           ),
                         )
@@ -394,7 +313,7 @@ class _SolicitarVeiculoState extends State<SolicitarVeiculo> {
 
   atualizar(setState) {
     setState(() {
-      cracha = testecontroller.text;
+      cracha = crachacontroller.text;
       if (cadastro.containsKey(cracha)) {
         // ignore: unnecessary_statements
         nome = cadastro[cracha]!["Nome"];
@@ -420,5 +339,188 @@ class _SolicitarVeiculoState extends State<SolicitarVeiculo> {
         });
       });
     } catch (e) {}
+  }
+
+  verifica2() async {
+    try {
+      QuerySnapshot result =
+          await FirebaseFirestore.instance.collection("Solicitacoes").get();
+      setState(() {});
+      result.docs.forEach((element) {
+        veiculos.addAll({
+          element.id: {
+            "Nome": element.get("Nome"),
+            "Setor": element.get("Setor"),
+            "Cracha": element.get("Cracha"),
+            "Hora-Saida": element.get("Hora-Saida"),
+            "Hora-Chegada": element.get("Hora-Chegada"),
+            "Destino": element.get("Destino"),
+            "Dia": element.get("Dia"),
+          }
+        });
+      });
+    } catch (e) {}
+  }
+
+  addsolicitacao() {
+    if (nome != "" &&
+        setor != "" &&
+        cracha != "" &&
+        veiculoselecionado != "" &&
+        saidacontroller.text != "" &&
+        chegadacontroller.text != "" &&
+        destinocontroller.text != "" &&
+        date1 != "") {
+      solicitacoes.addAll({
+        crachacontroller.text: {
+          "Nome": nome,
+          "Setor": setor,
+          "Cracha": cracha,
+          "Veiculo": veiculoselecionado,
+          "Hora-Saida": saidacontroller.text,
+          "Hora-Chegada": chegadacontroller.text,
+          "Destino": destinocontroller.text,
+          "Dia": date1,
+        }
+      });
+
+      FirebaseFirestore.instance
+          .collection("Solicitacoes")
+          .doc(crachacontroller.text)
+          .set({
+        "Nome": nome,
+        "Setor": setor,
+        "Cracha": cracha,
+        "Veiculo": veiculoselecionado,
+        "Hora-Saida": saidacontroller.text,
+        "Hora-Chegada": chegadacontroller.text,
+        "Destino": destinocontroller.text,
+        "Dia": date1,
+      });
+
+      chegadacontroller.clear();
+      saidacontroller.clear();
+      destinocontroller.clear();
+      date1 = "";
+      nome = "";
+      setor = "";
+      crachacontroller.clear();
+      veiculoselecionado = "";
+      Navigator.pop(context);
+
+      ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+          backgroundColor: Colors.green,
+          content: Text("Solicitacao agendada")));
+    } else {
+      ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+          backgroundColor: Colors.red,
+          content: Text("Existe campos em branco")));
+    }
+  }
+
+  listaveiculos() {
+    return Container(
+      color: Colors.white,
+      width: MediaQuery.of(context).size.width * 0.4,
+      height: 90,
+      child: ListView.builder(
+        itemCount: veiculos.length,
+        itemBuilder: (BuildContext context, index) {
+          return InkWell(
+            onTap: () {
+              veiculoselecionado =
+                  veiculos.values.elementAt(index)["Modelo"].toString();
+
+              atualizar(setState);
+            },
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceAround,
+              children: [
+                Container(
+                  decoration: BoxDecoration(border: Border.all()),
+                  height: 25,
+                  width: MediaQuery.of(context).size.width * 0.2,
+                  child: Center(
+                    child: Text(
+                        veiculos.values.elementAt(index)["Modelo"].toString()),
+                  ),
+                ),
+                Container(
+                  decoration: BoxDecoration(border: Border.all()),
+                  height: 25,
+                  width: MediaQuery.of(context).size.width * 0.2,
+                  child: Center(
+                    child: Text(veiculos.keys.elementAt(index).toString()),
+                  ),
+                ),
+              ],
+            ),
+          );
+        },
+      ),
+    );
+  }
+
+  botaocadastro() {
+    TextButton(
+        onPressed: () {
+          addsolicitacao();
+
+          //verifica2();
+        },
+        child: Text("Cadastrar"));
+  }
+
+  modeloeplaca() {
+    return Container(
+      //color: Colors.blue,
+      width: MediaQuery.of(context).size.width * 0.4,
+      height: 25,
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.spaceAround,
+        children: [
+          Container(
+            decoration:
+                BoxDecoration(color: Colors.grey[300], border: Border.all()),
+            width: MediaQuery.of(context).size.width * 0.2,
+            child: Center(
+                child: Text("Modelo",
+                    style: TextStyle(fontWeight: FontWeight.bold))),
+          ),
+          Container(
+            decoration:
+                BoxDecoration(color: Colors.grey[300], border: Border.all()),
+            width: MediaQuery.of(context).size.width * 0.2,
+            child: Center(
+                child: Text("Placa",
+                    style: TextStyle(fontWeight: FontWeight.bold))),
+          )
+        ],
+      ),
+    );
+  }
+
+  veiculoselecao() {
+    return Container(
+      width: MediaQuery.of(context).size.width * 0.2,
+      child: Column(
+        children: [
+          Text("Veiculo"),
+          Container(
+            width: 300,
+            height: 30,
+            decoration: BoxDecoration(
+                border: Border.all(color: Colors.grey),
+                borderRadius: BorderRadius.circular(4)),
+            child: Align(
+                alignment: Alignment.centerLeft,
+                child: Padding(
+                  padding: const EdgeInsets.only(left: 3),
+                  child: Center(child: Text(veiculoselecionado)),
+                )),
+          )
+        ],
+      ),
+    );
   }
 }
