@@ -11,8 +11,6 @@ class SolicitarVeiculo extends StatefulWidget {
 }
 
 class _SolicitarVeiculoState extends State<SolicitarVeiculo> {
-  String valoresInicio = testar.last;
-  int a = 6;
   String cracha = "";
   String nome = "";
   String setor = "";
@@ -462,7 +460,7 @@ class _SolicitarVeiculoState extends State<SolicitarVeiculo> {
   }
 
   botaocadastro() {
-    TextButton(
+    return TextButton(
         onPressed: () {
           addsolicitacao();
 

@@ -1,6 +1,5 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
-import 'package:reserva_carro/variaveis.dart';
 
 class CadastroVeiculos extends StatefulWidget {
   @override
@@ -74,15 +73,6 @@ class _CadastroVeiculosState extends State<CadastroVeiculos> {
                               anocontroller.text != "" &&
                               placacontroller.text != "" &&
                               combustivelcontroller.text != "") {
-                            veiculos.addAll({
-                              placacontroller.text: {
-                                "Marca": marcacontroller.text,
-                                "Modelo": modelocontroller.text,
-                                "Motor": motorcontroller.text,
-                                "Ano": anocontroller.text,
-                                "Combustivel": combustivelcontroller.text,
-                              }
-                            });
                             FirebaseFirestore.instance
                                 .collection("Veiculos")
                                 .doc(placacontroller.text)
