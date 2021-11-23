@@ -1,5 +1,5 @@
-import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
+import 'package:reserva_carro/variaveis.dart';
 
 class CadastroFuncionarios extends StatefulWidget {
   @override
@@ -50,12 +50,18 @@ class _CadastroFuncionariosState extends State<CadastroFuncionarios> {
                             if (nomecontroller.text != "" &&
                                 crachacontroller.text != "" &&
                                 setorcontroller.text != "") {
-                              FirebaseFirestore.instance
+                              /*FirebaseFirestore.instance
                                   .collection("Funcionarios")
                                   .doc(crachacontroller.text)
                                   .set({
                                 "Nome": nomecontroller.text,
                                 "Setor": setorcontroller.text,
+                              });*/
+                              cadastro.addAll({
+                                crachacontroller.text: {
+                                  "Nome": nomecontroller.text,
+                                  "Setor": setorcontroller.text,
+                                }
                               });
                               Navigator.pop(context);
                               nomecontroller.clear();

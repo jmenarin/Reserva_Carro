@@ -22,9 +22,8 @@ class _SolicitarVeiculoState extends State<SolicitarVeiculo> {
 
   @override
   Widget build(BuildContext context) {
-    verificar();
     verifica();
-    verifica2();
+    verificar();
     return Align(
       alignment: Alignment.centerLeft,
       child: InkWell(
@@ -261,7 +260,32 @@ class _SolicitarVeiculoState extends State<SolicitarVeiculo> {
                                   ),
                                 ]),
                               ),
-                              veiculoselecao(),
+                              Container(
+                                width: MediaQuery.of(context).size.width * 0.2,
+                                child: Column(
+                                  children: [
+                                    Text("Veiculo"),
+                                    Container(
+                                      width: 300,
+                                      height: 30,
+                                      decoration: BoxDecoration(
+                                          border:
+                                              Border.all(color: Colors.grey),
+                                          borderRadius:
+                                              BorderRadius.circular(4)),
+                                      child: Align(
+                                          alignment: Alignment.centerLeft,
+                                          child: Padding(
+                                            padding:
+                                                const EdgeInsets.only(left: 3),
+                                            child: Center(
+                                                child:
+                                                    Text(veiculoselecionado)),
+                                          )),
+                                    )
+                                  ],
+                                ),
+                              ),
                               SizedBox(height: 10),
                               Container(
                                 width: MediaQuery.of(context).size.width * 0.4,
@@ -275,9 +299,100 @@ class _SolicitarVeiculoState extends State<SolicitarVeiculo> {
                                   style: TextStyle(fontWeight: FontWeight.bold),
                                 )),
                               ),
-                              modeloeplaca(),
-                              listaveiculos(),
-                              botaocadastro(),
+                              Container(
+                                //color: Colors.blue,
+                                width: MediaQuery.of(context).size.width * 0.4,
+                                height: 25,
+                                child: Row(
+                                  mainAxisAlignment:
+                                      MainAxisAlignment.spaceAround,
+                                  children: [
+                                    Container(
+                                      decoration: BoxDecoration(
+                                          color: Colors.grey[300],
+                                          border: Border.all()),
+                                      width: MediaQuery.of(context).size.width *
+                                          0.2,
+                                      child: Center(
+                                          child: Text("Modelo",
+                                              style: TextStyle(
+                                                  fontWeight:
+                                                      FontWeight.bold))),
+                                    ),
+                                    Container(
+                                      decoration: BoxDecoration(
+                                          color: Colors.grey[300],
+                                          border: Border.all()),
+                                      width: MediaQuery.of(context).size.width *
+                                          0.2,
+                                      child: Center(
+                                          child: Text("Placa",
+                                              style: TextStyle(
+                                                  fontWeight:
+                                                      FontWeight.bold))),
+                                    )
+                                  ],
+                                ),
+                              ),
+                              Container(
+                                color: Colors.white,
+                                width: MediaQuery.of(context).size.width * 0.4,
+                                height: 90,
+                                child: ListView.builder(
+                                  itemCount: veiculos.length,
+                                  itemBuilder: (BuildContext context, index) {
+                                    return InkWell(
+                                      onTap: () {
+                                        veiculoselecionado = veiculos.values
+                                            .elementAt(index)["Modelo"]
+                                            .toString();
+
+                                        atualizar(setState);
+                                      },
+                                      child: Row(
+                                        mainAxisAlignment:
+                                            MainAxisAlignment.spaceAround,
+                                        children: [
+                                          Container(
+                                            decoration: BoxDecoration(
+                                                border: Border.all()),
+                                            height: 25,
+                                            width: MediaQuery.of(context)
+                                                    .size
+                                                    .width *
+                                                0.2,
+                                            child: Center(
+                                              child: Text(veiculos.values
+                                                  .elementAt(index)["Modelo"]
+                                                  .toString()),
+                                            ),
+                                          ),
+                                          Container(
+                                            decoration: BoxDecoration(
+                                                border: Border.all()),
+                                            height: 25,
+                                            width: MediaQuery.of(context)
+                                                    .size
+                                                    .width *
+                                                0.2,
+                                            child: Center(
+                                              child: Text(veiculos.keys
+                                                  .elementAt(index)
+                                                  .toString()),
+                                            ),
+                                          ),
+                                        ],
+                                      ),
+                                    );
+                                  },
+                                ),
+                              ),
+                              TextButton(
+                                  onPressed: () {
+                                    addsolicitacao();
+                                    atualizar(setState);
+                                  },
+                                  child: Text("Cadastrar")),
                             ],
                           ),
                         )
@@ -297,16 +412,6 @@ class _SolicitarVeiculoState extends State<SolicitarVeiculo> {
       DateFormat format = DateFormat('dd/MM/yyyy');
       date1 = format.format(date);
     });
-  }
-
-  verificar() async {
-    try {
-      QuerySnapshot result =
-          await FirebaseFirestore.instance.collection("Funcionarios").get();
-      result.docs.forEach((element) {
-        testar.add(element.get("Nome"));
-      });
-    } catch (e) {}
   }
 
   atualizar(setState) {
@@ -339,7 +444,7 @@ class _SolicitarVeiculoState extends State<SolicitarVeiculo> {
     } catch (e) {}
   }
 
-  verifica2() async {
+  /*verifica2() async {
     try {
       QuerySnapshot result =
           await FirebaseFirestore.instance.collection("Solicitacoes").get();
@@ -354,6 +459,22 @@ class _SolicitarVeiculoState extends State<SolicitarVeiculo> {
             "Hora-Chegada": element.get("Hora-Chegada"),
             "Destino": element.get("Destino"),
             "Dia": element.get("Dia"),
+          }
+        });
+      });
+    } catch (e) {}
+  }*/
+
+  verificar() async {
+    try {
+      QuerySnapshot result =
+          await FirebaseFirestore.instance.collection("Funcionarios").get();
+      setState(() {});
+      result.docs.forEach((element) {
+        cadastro.addAll({
+          element.id: {
+            "Nome": element.get("Nome"),
+            "Setor": element.get("Setor")
           }
         });
       });
@@ -382,7 +503,7 @@ class _SolicitarVeiculoState extends State<SolicitarVeiculo> {
         }
       });
 
-      FirebaseFirestore.instance
+      /*FirebaseFirestore.instance
           .collection("Solicitacoes")
           .doc(crachacontroller.text)
           .set({
@@ -394,7 +515,7 @@ class _SolicitarVeiculoState extends State<SolicitarVeiculo> {
         "Hora-Chegada": chegadacontroller.text,
         "Destino": destinocontroller.text,
         "Dia": date1,
-      });
+      });*/
 
       chegadacontroller.clear();
       saidacontroller.clear();
@@ -404,7 +525,9 @@ class _SolicitarVeiculoState extends State<SolicitarVeiculo> {
       setor = "";
       crachacontroller.clear();
       veiculoselecionado = "";
+
       Navigator.pop(context);
+      atualizar(setState);
 
       ScaffoldMessenger.of(context).showSnackBar(SnackBar(
           backgroundColor: Colors.green,
@@ -414,111 +537,5 @@ class _SolicitarVeiculoState extends State<SolicitarVeiculo> {
           backgroundColor: Colors.red,
           content: Text("Existe campos em branco")));
     }
-  }
-
-  listaveiculos() {
-    return Container(
-      color: Colors.white,
-      width: MediaQuery.of(context).size.width * 0.4,
-      height: 90,
-      child: ListView.builder(
-        itemCount: veiculos.length,
-        itemBuilder: (BuildContext context, index) {
-          return InkWell(
-            onTap: () {
-              veiculoselecionado =
-                  veiculos.values.elementAt(index)["Modelo"].toString();
-
-              atualizar(setState);
-            },
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.spaceAround,
-              children: [
-                Container(
-                  decoration: BoxDecoration(border: Border.all()),
-                  height: 25,
-                  width: MediaQuery.of(context).size.width * 0.2,
-                  child: Center(
-                    child: Text(
-                        veiculos.values.elementAt(index)["Modelo"].toString()),
-                  ),
-                ),
-                Container(
-                  decoration: BoxDecoration(border: Border.all()),
-                  height: 25,
-                  width: MediaQuery.of(context).size.width * 0.2,
-                  child: Center(
-                    child: Text(veiculos.keys.elementAt(index).toString()),
-                  ),
-                ),
-              ],
-            ),
-          );
-        },
-      ),
-    );
-  }
-
-  botaocadastro() {
-    return TextButton(
-        onPressed: () {
-          addsolicitacao();
-
-          //verifica2();
-        },
-        child: Text("Cadastrar"));
-  }
-
-  modeloeplaca() {
-    return Container(
-      //color: Colors.blue,
-      width: MediaQuery.of(context).size.width * 0.4,
-      height: 25,
-      child: Row(
-        mainAxisAlignment: MainAxisAlignment.spaceAround,
-        children: [
-          Container(
-            decoration:
-                BoxDecoration(color: Colors.grey[300], border: Border.all()),
-            width: MediaQuery.of(context).size.width * 0.2,
-            child: Center(
-                child: Text("Modelo",
-                    style: TextStyle(fontWeight: FontWeight.bold))),
-          ),
-          Container(
-            decoration:
-                BoxDecoration(color: Colors.grey[300], border: Border.all()),
-            width: MediaQuery.of(context).size.width * 0.2,
-            child: Center(
-                child: Text("Placa",
-                    style: TextStyle(fontWeight: FontWeight.bold))),
-          )
-        ],
-      ),
-    );
-  }
-
-  veiculoselecao() {
-    return Container(
-      width: MediaQuery.of(context).size.width * 0.2,
-      child: Column(
-        children: [
-          Text("Veiculo"),
-          Container(
-            width: 300,
-            height: 30,
-            decoration: BoxDecoration(
-                border: Border.all(color: Colors.grey),
-                borderRadius: BorderRadius.circular(4)),
-            child: Align(
-                alignment: Alignment.centerLeft,
-                child: Padding(
-                  padding: const EdgeInsets.only(left: 3),
-                  child: Center(child: Text(veiculoselecionado)),
-                )),
-          )
-        ],
-      ),
-    );
   }
 }

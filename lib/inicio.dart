@@ -1,4 +1,3 @@
-import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:reserva_carro/cadastrofuncionario.dart';
 import 'package:reserva_carro/cadastroveiculos.dart';
@@ -21,8 +20,7 @@ class _PageInicioState extends State<PageInicio> {
 
   @override
   Widget build(BuildContext context) {
-    //verifica();
-
+    setState(() {});
     return Scaffold(
       body: Column(
         children: [
@@ -43,22 +41,6 @@ class _PageInicioState extends State<PageInicio> {
         ],
       ),
     );
-  }
-
-  verifica() async {
-    try {
-      QuerySnapshot result =
-          await FirebaseFirestore.instance.collection("Funcionarios").get();
-      setState(() {});
-      result.docs.forEach((element) {
-        cadastro.addAll({
-          element.id: {
-            "Nome": element.get("Nome"),
-            "Setor": element.get("Setor")
-          }
-        });
-      });
-    } catch (e) {}
   }
 
   atualizar(setState) {
@@ -149,10 +131,16 @@ class _PageInicioState extends State<PageInicio> {
                                     child: Text("Não")),
                                 TextButton(
                                     onPressed: () {
-                                      atualizar(setState);
                                       solicitacoes.remove(solicitacoes.values
                                           .elementAt(index)["Cracha"]
                                           .toString());
+                                      atualizar(setState);
+
+                                      /*FirebaseFirestore.instance
+                                          .collection("Funcionarios")
+                                          .doc(solicitacoes.values
+                                              .elementAt(index)["Cracha"]
+                                              .toString());*/
 
                                       Navigator.pop(context);
                                     },
