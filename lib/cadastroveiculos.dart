@@ -13,6 +13,7 @@ class _CadastroVeiculosState extends State<CadastroVeiculos> {
   TextEditingController anocontroller = TextEditingController();
   TextEditingController placacontroller = TextEditingController();
   TextEditingController combustivelcontroller = TextEditingController();
+  TextEditingController carropcdcontroller = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
@@ -63,6 +64,12 @@ class _CadastroVeiculosState extends State<CadastroVeiculos> {
                       labelText: "Combustivel",
                     ),
                   ),
+                  TextFormField(
+                    controller: carropcdcontroller,
+                    decoration: InputDecoration(
+                      labelText: "Carro PCD",
+                    ),
+                  ),
                   SizedBox(height: 10),
                   Center(
                     child: TextButton(
@@ -90,6 +97,7 @@ class _CadastroVeiculosState extends State<CadastroVeiculos> {
                                 "Motor": motorcontroller.text,
                                 "Ano": anocontroller.text,
                                 "Combustivel": combustivelcontroller.text,
+                                "CarroPCD": carropcdcontroller.text,
                               }
                             });
                             Navigator.pop(context);
@@ -99,6 +107,7 @@ class _CadastroVeiculosState extends State<CadastroVeiculos> {
                             motorcontroller.clear();
                             placacontroller.clear();
                             combustivelcontroller.clear();
+                            carropcdcontroller.clear();
                             ScaffoldMessenger.of(context).showSnackBar(SnackBar(
                                 backgroundColor: Colors.green,
                                 content: Text("Veiculo cadastrado")));

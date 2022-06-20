@@ -14,6 +14,8 @@ class _SolicitarVeiculoState extends State<SolicitarVeiculo> {
   String cracha = "";
   String nome = "";
   String setor = "";
+  String carropcd = "";
+  String motorista = "";
   DateTime date = DateTime.now();
   String date1 = "";
   String horapadrao = "00:00";
@@ -48,7 +50,7 @@ class _SolicitarVeiculoState extends State<SolicitarVeiculo> {
                                   children: [
                                     Container(
                                       width: MediaQuery.of(context).size.width *
-                                          0.1,
+                                          0.075,
                                       child: Column(
                                         children: [
                                           Text("Cracha"),
@@ -73,7 +75,7 @@ class _SolicitarVeiculoState extends State<SolicitarVeiculo> {
                                     ),
                                     Container(
                                       width: MediaQuery.of(context).size.width *
-                                          0.2,
+                                          0.1,
                                       child: Column(
                                         children: [
                                           Text("Nome"),
@@ -99,7 +101,7 @@ class _SolicitarVeiculoState extends State<SolicitarVeiculo> {
                                     ),
                                     Container(
                                       width: MediaQuery.of(context).size.width *
-                                          0.1,
+                                          0.075,
                                       child: Column(
                                         children: [
                                           Text("Setor"),
@@ -112,6 +114,46 @@ class _SolicitarVeiculoState extends State<SolicitarVeiculo> {
                                                 borderRadius:
                                                     BorderRadius.circular(4)),
                                             child: Center(child: Text(setor)),
+                                          ),
+                                        ],
+                                      ),
+                                    ),
+                                    Container(
+                                      width: MediaQuery.of(context).size.width *
+                                          0.075,
+                                      child: Column(
+                                        children: [
+                                          Text("Possui deficiencia?"),
+                                          Container(
+                                            width: 100,
+                                            height: 30,
+                                            decoration: BoxDecoration(
+                                                border: Border.all(
+                                                    color: Colors.grey),
+                                                borderRadius:
+                                                    BorderRadius.circular(4)),
+                                            child:
+                                                Center(child: Text(carropcd)),
+                                          ),
+                                        ],
+                                      ),
+                                    ),
+                                    Container(
+                                      width: MediaQuery.of(context).size.width *
+                                          0.075,
+                                      child: Column(
+                                        children: [
+                                          Text("Precisa de motorista?"),
+                                          Container(
+                                            width: 100,
+                                            height: 30,
+                                            decoration: BoxDecoration(
+                                                border: Border.all(
+                                                    color: Colors.grey),
+                                                borderRadius:
+                                                    BorderRadius.circular(4)),
+                                            child:
+                                                Center(child: Text(motorista)),
                                           ),
                                         ],
                                       ),
@@ -312,7 +354,7 @@ class _SolicitarVeiculoState extends State<SolicitarVeiculo> {
                                           color: Colors.grey[300],
                                           border: Border.all()),
                                       width: MediaQuery.of(context).size.width *
-                                          0.2,
+                                          0.175,
                                       child: Center(
                                           child: Text("Modelo",
                                               style: TextStyle(
@@ -324,9 +366,21 @@ class _SolicitarVeiculoState extends State<SolicitarVeiculo> {
                                           color: Colors.grey[300],
                                           border: Border.all()),
                                       width: MediaQuery.of(context).size.width *
-                                          0.2,
+                                          0.175,
                                       child: Center(
                                           child: Text("Placa",
+                                              style: TextStyle(
+                                                  fontWeight:
+                                                      FontWeight.bold))),
+                                    ),
+                                    Container(
+                                      decoration: BoxDecoration(
+                                          color: Colors.grey[300],
+                                          border: Border.all()),
+                                      width: MediaQuery.of(context).size.width *
+                                          0.05,
+                                      child: Center(
+                                          child: Text("PCD",
                                               style: TextStyle(
                                                   fontWeight:
                                                       FontWeight.bold))),
@@ -360,7 +414,7 @@ class _SolicitarVeiculoState extends State<SolicitarVeiculo> {
                                             width: MediaQuery.of(context)
                                                     .size
                                                     .width *
-                                                0.2,
+                                                0.175,
                                             child: Center(
                                               child: Text(veiculos.values
                                                   .elementAt(index)["Modelo"]
@@ -374,10 +428,24 @@ class _SolicitarVeiculoState extends State<SolicitarVeiculo> {
                                             width: MediaQuery.of(context)
                                                     .size
                                                     .width *
-                                                0.2,
+                                                0.175,
                                             child: Center(
                                               child: Text(veiculos.keys
                                                   .elementAt(index)
+                                                  .toString()),
+                                            ),
+                                          ),
+                                          Container(
+                                            decoration: BoxDecoration(
+                                                border: Border.all()),
+                                            height: 25,
+                                            width: MediaQuery.of(context)
+                                                    .size
+                                                    .width *
+                                                0.05,
+                                            child: Center(
+                                              child: Text(veiculos.values
+                                                  .elementAt(index)["CarroPCD"]
                                                   .toString()),
                                             ),
                                           ),
@@ -421,6 +489,8 @@ class _SolicitarVeiculoState extends State<SolicitarVeiculo> {
         // ignore: unnecessary_statements
         nome = cadastro[cracha]!["Nome"];
         setor = cadastro[cracha]!["Setor"];
+        carropcd = cadastro[cracha]!["CarroPCD"];
+        motorista = cadastro[cracha]!["Motorista"];
       }
     });
   }

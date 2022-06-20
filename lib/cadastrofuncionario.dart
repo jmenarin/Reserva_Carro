@@ -10,6 +10,8 @@ class _CadastroFuncionariosState extends State<CadastroFuncionarios> {
   TextEditingController nomecontroller = TextEditingController();
   TextEditingController crachacontroller = TextEditingController();
   TextEditingController setorcontroller = TextEditingController();
+  TextEditingController precisamotoristacontroller = TextEditingController();
+  TextEditingController carropcdcontroller = TextEditingController();
   bool botao = true;
 
   @override
@@ -43,13 +45,27 @@ class _CadastroFuncionariosState extends State<CadastroFuncionarios> {
                         labelText: "Setor",
                       ),
                     ),
+                    TextFormField(
+                      controller: carropcdcontroller,
+                      decoration: InputDecoration(
+                        labelText: "Precisa de carro PCD?",
+                      ),
+                    ),
+                    TextFormField(
+                      controller: precisamotoristacontroller,
+                      decoration: InputDecoration(
+                        labelText: "Precisa de motorista?",
+                      ),
+                    ),
                     SizedBox(height: 10),
                     Center(
                       child: TextButton(
                           onPressed: () {
                             if (nomecontroller.text != "" &&
                                 crachacontroller.text != "" &&
-                                setorcontroller.text != "") {
+                                setorcontroller.text != "" &&
+                                precisamotoristacontroller.text != "" &&
+                                carropcdcontroller.text != "") {
                               /*FirebaseFirestore.instance
                                   .collection("Funcionarios")
                                   .doc(crachacontroller.text)
@@ -61,12 +77,16 @@ class _CadastroFuncionariosState extends State<CadastroFuncionarios> {
                                 crachacontroller.text: {
                                   "Nome": nomecontroller.text,
                                   "Setor": setorcontroller.text,
+                                  "CarroPCD": carropcdcontroller.text,
+                                  "Motorista": precisamotoristacontroller.text,
                                 }
                               });
                               Navigator.pop(context);
                               nomecontroller.clear();
                               crachacontroller.clear();
                               setorcontroller.clear();
+                              precisamotoristacontroller.clear();
+                              carropcdcontroller.clear();
                               ScaffoldMessenger.of(context).showSnackBar(
                                   SnackBar(
                                       backgroundColor: Colors.green,

@@ -11,11 +11,11 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      localizationsDelegates: [
+     /* localizationsDelegates: [
         GlobalMaterialLocalizations.delegate,
         GlobalWidgetsLocalizations.delegate
       ],
-      supportedLocales: [const Locale('pt', 'BR')],
+      supportedLocales: [const Locale('pt', 'BR')],*/
 
       debugShowCheckedModeBanner: false,
       title: 'Flutter Demo',

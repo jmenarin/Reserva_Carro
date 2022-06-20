@@ -295,7 +295,7 @@ class _PageInicioState extends State<PageInicio> {
 
   menuprincipal() {
     return Container(
-      color: Colors.red,
+      color: Colors.black,
       width: MediaQuery.of(context).size.width,
       height: MediaQuery.of(context).size.height * 0.1,
       child: Padding(
